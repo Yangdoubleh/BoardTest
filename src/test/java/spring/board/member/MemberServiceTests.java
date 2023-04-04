@@ -2,38 +2,30 @@ package spring.board.member;
 
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
-import spring.board.BoardApplicationTests;
 
 import static org.assertj.core.api.Assertions.*;
 
-/**
- * Member 등록 및 로그인 테스트
- */
 @SpringBootTest
-@Transactional
 @Slf4j
-public class MemberRepositoryTests extends BoardApplicationTests {
+@Transactional
+public class MemberServiceTests {
 
     @Autowired
-    MemberRepository memberRepository;
+    MemberService memberService;
 
     @BeforeEach
     public void before() {
-        log.info("class = {}", "memberRepository");
+        log.info("class = {}", "memberService");
     }
 
-    /**
-     * 멤버 등록 테스트
-     */
     @Test
     @Rollback(value = true)
-    public void insertMember() {
+    void insertMember() {
         log.info("method = {}", "insertMember");
 
         Member member = Member.builder()
@@ -44,21 +36,18 @@ public class MemberRepositoryTests extends BoardApplicationTests {
 
         log.info("생성한{}", member.toString());
 
-        Member insertMember = memberRepository.save(member);
+        Member insertMember = memberService.insertMember(member);
 
-        log.info("등록한{}", insertMember.toString());
+        log.info("등록한{}", member.toString());
 
         assertThat(insertMember.getId()).isEqualTo(member.getId());
         assertThat(insertMember.getPassword()).isEqualTo(member.getPassword());
         assertThat(insertMember.getNickname()).isEqualTo(member.getNickname());
     }
 
-    /**
-     * 멤버 조회 테스트
-     */
     @Test
     @Rollback(value = true)
-    public void selectMember() {
+    void selectMember() {
         log.info("method = {}", "selectMember");
 
         Member member = Member.builder()
@@ -69,11 +58,10 @@ public class MemberRepositoryTests extends BoardApplicationTests {
 
         log.info("생성한{}", member.toString());
 
-        memberRepository.save(member);
+        memberService.insertMember(member);
+        Member selectMember = memberService.selectOneMemberById(member);
 
-        Member selectMember = memberRepository.findOneById(member.getId());
-
-        log.info("조회된{}", selectMember.toString());
+        log.info("선택한{}", selectMember.toString());
 
         assertThat(selectMember.getId()).isEqualTo(member.getId());
         assertThat(selectMember.getPassword()).isEqualTo(member.getPassword());
