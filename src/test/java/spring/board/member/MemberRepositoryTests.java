@@ -16,7 +16,7 @@ import static org.assertj.core.api.Assertions.*;
 @SpringBootTest
 @Transactional
 @Slf4j
-public class MemberTests extends BoardApplicationTests {
+public class MemberRepositoryTests extends BoardApplicationTests {
 
     @Autowired
     MemberRepository memberRepository;
