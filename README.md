@@ -8,7 +8,7 @@
    c. 게시글 등록, 보기, 수정, 삭제(CRUD)
 
    d. 게시글 답글 달기
-2. TTD 기반 코딩
+2. TDD 기반 코딩
 3. JPA 사용해서 작성
 4. ERD 필수(https://www.erdcloud.com/d/sLusdAkSwk3Bn2SHM)
 5. 작업물 각자 GitHub에 올리기
