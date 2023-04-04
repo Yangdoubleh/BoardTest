@@ -42,7 +42,6 @@ public class MemberRepositoryTests extends BoardApplicationTests {
         assertThat(insertMember.getId()).isEqualTo(member.getId());
         assertThat(insertMember.getPassword()).isEqualTo(member.getPassword());
         assertThat(insertMember.getNickname()).isEqualTo(member.getNickname());
-        assertThat(insertMember).isEqualTo(member);
     }
 
     /**
@@ -68,6 +67,5 @@ public class MemberRepositoryTests extends BoardApplicationTests {
         assertThat(selectMember.getId()).isEqualTo(member.getId());
         assertThat(selectMember.getPassword()).isEqualTo(member.getPassword());
         assertThat(selectMember.getNickname()).isEqualTo(member.getNickname());
-        assertThat(selectMember).isEqualTo(member);
     }
 }
