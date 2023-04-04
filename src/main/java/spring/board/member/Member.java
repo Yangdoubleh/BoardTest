@@ -1,29 +1,33 @@
 package spring.board.member;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-@Data
+@Getter
 @Entity(name="member")
-@NoArgsConstructor
+@Builder
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 public class Member {
+
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false, unique = true)
-    private String Id;
+    private int memberseq;
     @Column(nullable = false)
-    private String Password;
+    private String id;
     @Column(nullable = false)
-    private String Nickname;
+    private String password;
+    @Column(nullable = false)
+    private String nickname;
 
     @Override
     public String toString() {
         return "멤버 객체 확인{" +
-                "멤버아이디='" + Id + '\'' +
-                ", 패스워드='" + Password + '\'' +
-                ", 닉네임='" + Nickname + '\'' +
+                "멤버시퀀스='" + memberseq + '\'' +
+                "멤버아이디='" + id + '\'' +
+                ", 패스워드='" + password + '\'' +
+                ", 닉네임='" + nickname + '\'' +
                 '}';
     }
 }

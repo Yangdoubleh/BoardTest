@@ -25,7 +25,12 @@ public class MemberTests extends BoardApplicationTests {
      */
     @Test
     public void memberInsert() {
-        Member member = new Member("Idtest", "Passwordtest", "Nicknametest");
+        Member member = Member.builder()
+                .id("testmember")
+                .password("testpassword")
+                .nickname("testnickname")
+                .build();
+
         Member insertMember = memberRepository.save(member);
 
         log.info(insertMember.toString());
@@ -33,5 +38,6 @@ public class MemberTests extends BoardApplicationTests {
         assertThat(insertMember.getId()).isEqualTo(member.getId());
         assertThat(insertMember.getPassword()).isEqualTo(member.getPassword());
         assertThat(insertMember.getNickname()).isEqualTo(member.getNickname());
+        assertThat(insertMember).isEqualTo(member);
     }
 }
