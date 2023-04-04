@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Rollback;
 import spring.board.BoardApplicationTests;
 
 import static org.assertj.core.api.Assertions.*;
@@ -24,20 +25,49 @@ public class MemberTests extends BoardApplicationTests {
      * 멤버 등록 테스트
      */
     @Test
-    public void memberInsert() {
+    @Rollback(value = true)
+    public void insertMember() {
         Member member = Member.builder()
                 .id("testmember")
                 .password("testpassword")
                 .nickname("testnickname")
                 .build();
 
+        log.info("생성한{}", member.toString());
+
         Member insertMember = memberRepository.save(member);
 
-        log.info(insertMember.toString());
+        log.info("등록한{}", insertMember.toString());
 
         assertThat(insertMember.getId()).isEqualTo(member.getId());
         assertThat(insertMember.getPassword()).isEqualTo(member.getPassword());
         assertThat(insertMember.getNickname()).isEqualTo(member.getNickname());
         assertThat(insertMember).isEqualTo(member);
+    }
+
+    /**
+     * 멤버 조회 테스트
+     */
+    @Test
+    @Rollback(value = true)
+    public void selectMember() {
+        Member member = Member.builder()
+                .id("testmember")
+                .password("testpassword")
+                .nickname("testnickname")
+                .build();
+
+        log.info("생성한{}", member.toString());
+
+        memberRepository.save(member);
+
+        Member selectMember = memberRepository.findByIdAndPassword(member.getId(), member.getPassword());
+
+        log.info("조회된{}", selectMember.toString());
+
+        assertThat(selectMember.getId()).isEqualTo(member.getId());
+        assertThat(selectMember.getPassword()).isEqualTo(member.getPassword());
+        assertThat(selectMember.getNickname()).isEqualTo(member.getNickname());
+        assertThat(selectMember).isEqualTo(member);
     }
 }
