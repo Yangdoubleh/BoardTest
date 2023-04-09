@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
+import spring.board.request.MemberRequest;
 
 import static org.assertj.core.api.Assertions.*;
 
@@ -28,7 +29,7 @@ public class MemberServiceTests {
     void insertMember() {
         log.info("method = {}", "insertMember");
 
-        Member member = Member.builder()
+        MemberRequest member = MemberRequest.builder()
                 .id("insertid")
                 .password("insertpassword")
                 .nickname("insertnickname")
@@ -50,7 +51,7 @@ public class MemberServiceTests {
     void selectMember() {
         log.info("method = {}", "selectMember");
 
-        Member member = Member.builder()
+        MemberRequest member = MemberRequest.builder()
                 .id("selectid")
                 .password("selectpassword")
                 .nickname("selectnickname")

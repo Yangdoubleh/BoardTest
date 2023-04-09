@@ -4,6 +4,7 @@ import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import spring.board.request.MemberRequest;
 
 /**
  * 멤버 Service
@@ -21,7 +22,8 @@ public class MemberService {
      * @param member
      * @return
      */
-    public Member insertMember(Member member) {
+    public Member insertMember(MemberRequest memberRequest) {
+        Member member = buildMember(memberRequest);
         return memberRepository.save(member);
     }
 
@@ -30,7 +32,16 @@ public class MemberService {
      * @param member
      * @return
      */
-    public Member selectOneMemberById(Member member) {
+    public Member selectOneMemberById(MemberRequest memberRequest) {
+        Member member = buildMember(memberRequest);
         return memberRepository.findOneById(member.getId());
+    }
+
+    private Member buildMember(MemberRequest memberRequest) {
+        return Member.builder()
+                .id(memberRequest.getId())
+                .password(memberRequest.getPassword())
+                .nickname(memberRequest.getNickname())
+                .build();
     }
 }

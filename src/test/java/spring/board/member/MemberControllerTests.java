@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import spring.board.request.MemberRequest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -23,7 +24,7 @@ public class MemberControllerTests {
     @Test
     void SignUpTest() {
         //given
-        Member member = member();
+        MemberRequest member = member();
 
         ResponseEntity<Member> response = memberController.insertMember(member);
 
@@ -34,8 +35,8 @@ public class MemberControllerTests {
 
     }
 
-    private Member member() {
-        return Member.builder()
+    private MemberRequest member() {
+        return MemberRequest.builder()
                 .id("testid")
                 .password("testpw")
                 .nickname("testname")
@@ -45,7 +46,7 @@ public class MemberControllerTests {
     @DisplayName("로그인")
     @Test
     void Logintest() {
-        Member member = member();
+        MemberRequest member = member();
 
         memberController.insertMember(member);
 

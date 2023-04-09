@@ -12,13 +12,13 @@ public class Member {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(nullable = false, unique = true)
+    @Column(unique = true)
     private int memberseq;
-    @Column(nullable = false)
+    @Column()
     private String id;
-    @Column(nullable = false)
+    @Column()
     private String password;
-    @Column(nullable = false)
+    @Column()
     private String nickname;
 
     @Override
