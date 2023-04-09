@@ -4,25 +4,29 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
 
-@RestController
+@Controller
 @Slf4j
 @RequiredArgsConstructor
 public class MemberController {
 
     private final MemberService memberService;
 
-    @PostMapping("/user/insertMember")
+    @RequestMapping(value = "/user/insertMember", method= RequestMethod.POST)
     public ResponseEntity<Member> insertMember(@RequestBody Member insertMember) {
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(memberService.insertMember(insertMember));
     }
 
-    @PostMapping("/user/doLogin")
+    @RequestMapping(value = "/user/doLogin", method = RequestMethod.POST)
     public ResponseEntity<Member> selectOneMemberById(@RequestBody Member loginMember) {
         return ResponseEntity.ok(memberService.selectOneMemberById(loginMember));
+    }
+
+    @RequestMapping(value = "/user/main", method = RequestMethod.GET)
+    public String main() {
+        return "login";
     }
 }
