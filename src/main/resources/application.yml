@@ -11,6 +11,8 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MariaDBDialect
+    show-sql: true
+
   sql:
     init:
       encoding: UTF-8
