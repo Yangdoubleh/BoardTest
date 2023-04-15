@@ -19,7 +19,7 @@ public class MemberService {
 
     /**
      * member 등록
-     * @param member
+     * @param memberRequest
      * @return
      */
     public Member insertMember(MemberRequest memberRequest) {
@@ -29,13 +29,19 @@ public class MemberService {
 
     /**
      * member id로 유저 찾기
-     * @param member
+     * @param memberRequest
      * @return
      */
     public Member selectOneMemberById(MemberRequest memberRequest) {
         Member member = buildMember(memberRequest);
         return memberRepository.findOneById(member.getId());
     }
+
+    /**
+     * 멤버 객체 생성
+     * @param memberRequest
+     * @return
+     */
 
     private Member buildMember(MemberRequest memberRequest) {
         return Member.builder()

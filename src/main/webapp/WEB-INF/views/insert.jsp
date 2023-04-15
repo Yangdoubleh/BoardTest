@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://www.springframework.org/tags" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -40,7 +41,7 @@
   <div class="col-lg-4"></div>
   <div class="col-lg-4">
     <div class ="jumbotron" style="padding-top:20px;">
-      <form method = "post" action="/user/insertMember">
+      <form method = "post" id="insertForm" action="/user/insertMember">
         <h3 style="text-align:center;">회원가입</h3>
         <div class ="form-group">
           <input type ="text" class="form-control" placeholder="아이디" name ="id" maxlength='20'>
@@ -51,8 +52,8 @@
         <div class ="form-group">
           <input type ="text" class="form-control" placeholder="닉네임" name ="nickname" maxlength='20'>
         </div>
-        <input type="submit" class="btn btn-primary form-control" value="회원가입">
       </form>
+      <button class="btn btn-primary form-control" onclick="memberInsert()">회원 가입</button>
       <button class="btn btn-primary form-control" style="margin-top: 10px;" onclick="location.href='/user/main'">뒤로 가기</button>
     </div>
   </div>
@@ -61,5 +62,22 @@
 
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 <script src="js/bootstrap.js"></script>
+<script type="text/javascript">
+  const memberInsert = () => {
+    $.ajax({
+      type: 'post',
+      url: '<c:url value="/user/insertMember"/>',
+      data: $("#insertForm").serialize(),
+      dataType: 'json',
+      success: function (data) {
+        alert(data.nickname + "님 회원가입 되셨습니다.");
+        location.href = '/user/main';
+      }, error: function (e) {
+        console.log(e);
+        alert("오류가 발생했습니다.");
+      },
+    });
+  };
+</script>
 </body>
 </html>
