@@ -1,4 +1,4 @@
-package spring.board.request;
+package spring.board.member.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

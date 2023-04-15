@@ -1,12 +1,13 @@
 <%@ taglib prefix="c" uri="http://www.springframework.org/tags" %>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta name="viewport" content="width=device-width", initial-scale="1" >  <!-- 반응형 웹에서 사용하는 meta tag -->
-  <link rel="stylesheet" href="../../css/bootstrap.css"> <!-- 참조  -->
+  <link rel="stylesheet" href="../../../css/bootstrap.css"> <!-- 참조  -->
+  <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+  <script src="../../../js/bootstrap.js"></script>
   <title>JSP 게시판 웹 사이트</title>
 </head>
 <body>
@@ -19,21 +20,9 @@
       <span class ="icon-bar"></span>
       <span class ="icon-bar"></span>
     </button>
-    <a class ="navbar-brand" href="main.jsp">JSP 게시판 웹 사이트</a>
+    <a class ="navbar-brand">JSP 게시판 웹 사이트</a>
   </div>
   <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-    <ul class="nav navbar-nav navbar-right">
-      <li class="dropdown">
-        <a href="#" class = "dropdown-toggle"
-           data-toggle="dropdown" role ="button"
-           aria-haspopup="true"
-           aria-expanded="false">접속하기<span class="caret"></span></a>
-        <ul class="dropdown-menu">
-          <li class="active"><a href="login.jsp">로그인</a></li>
-          <li><a href="join.jsp">회원가입</a></li>
-        </ul>
-      </li>
-    </ul>
   </div>
 </nav>
 
@@ -59,9 +48,6 @@
   </div>
   <div class="col-lg-4"></div>
 </div>
-
-<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-<script src="js/bootstrap.js"></script>
 <script type="text/javascript">
   const memberInsert = () => {
     $.ajax({

@@ -1,12 +1,16 @@
-package spring.board.member;
+package spring.board.member.controller;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import spring.board.request.MemberRequest;
+import spring.board.member.Member;
+import spring.board.member.service.MemberService;
+import spring.board.member.request.MemberRequest;
 
 @Controller
 @Slf4j
@@ -17,24 +21,29 @@ public class MemberController {
 
     @PostMapping(value = "/user/insertMember")
     public ResponseEntity<Member> insertMember(MemberRequest memberRequest) throws Exception{
-        log.info("insertMember ={}", memberRequest);
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(memberService.insertMember(memberRequest));
     }
 
     @PostMapping(value = "/user/doLogin")
-    public ResponseEntity<Member> selectOneMemberById(MemberRequest loginMember) throws Exception{
-        log.info("loginMember ={}", loginMember.toString());
-        return ResponseEntity.ok(memberService.selectOneMemberById(loginMember));
+    public ResponseEntity<Member> selectOneMemberById(MemberRequest loginMember, HttpServletRequest request) throws Exception {
+        HttpSession session = request.getSession();
+
+        Member loginInfo = memberService.selectOneMemberById(loginMember);
+
+        session.setMaxInactiveInterval(3600);
+        session.setAttribute("loginId", loginInfo.getMemberseq());
+
+        return ResponseEntity.ok(loginInfo);
     }
 
     @RequestMapping(value = "/user/main", method = RequestMethod.GET)
     public String main() {
-        return "login";
+        return "member/login";
     }
 
     @RequestMapping(value = "/user/insert", method = RequestMethod.GET)
     public String insertPage() {
-        return "insert";
+        return "member/insert";
     }
 }

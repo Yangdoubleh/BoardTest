@@ -1,5 +1,6 @@
 package spring.board.member;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.DisplayName;
@@ -8,7 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import spring.board.request.MemberRequest;
+import org.springframework.mock.web.MockHttpServletRequest;
+import spring.board.member.controller.MemberController;
+import spring.board.member.request.MemberRequest;
+import spring.board.utils.SHA256;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -19,6 +23,13 @@ public class MemberControllerTests {
 
     @Autowired
     MemberController memberController;
+    SHA256 sha256 = new SHA256();
+
+    private final MockHttpServletRequest request;
+
+    public MemberControllerTests() {
+        this.request = new MockHttpServletRequest();
+    }
 
     @DisplayName("회원가입")
     @Test
@@ -28,10 +39,11 @@ public class MemberControllerTests {
 
         ResponseEntity<Member> response = memberController.insertMember(member);
 
+
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CREATED);
         assertThat(response.getBody().getId()).isEqualTo(member.getId());
         assertThat(response.getBody().getNickname()).isEqualTo(member.getNickname());
-        assertThat(response.getBody().getPassword()).isEqualTo(member.getPassword());
+        assertThat(response.getBody().getPassword()).isEqualTo(sha256.encrypt(member.getPassword()));
 
     }
 
@@ -50,11 +62,12 @@ public class MemberControllerTests {
 
         memberController.insertMember(member);
 
-        ResponseEntity<Member> response = memberController.selectOneMemberById(member);
+        ResponseEntity<Member> response = memberController.selectOneMemberById(member, request);
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(response.getBody().getId()).isEqualTo(member.getId());
-        assertThat(response.getBody().getPassword()).isEqualTo(member.getPassword());
+        assertThat(response.getBody().getPassword()).isEqualTo(sha256.encrypt(member.getPassword()));
         assertThat(response.getBody().getNickname()).isEqualTo(member.getNickname());
+        assertThat(response.getBody().getMemberseq()).isEqualTo(request.getSession().getAttribute("loginId"));
     }
 }

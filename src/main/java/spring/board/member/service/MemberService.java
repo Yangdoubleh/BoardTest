@@ -1,10 +1,12 @@
-package spring.board.member;
+package spring.board.member.service;
 
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import spring.board.request.MemberRequest;
+import spring.board.member.Member;
+import spring.board.member.repository.MemberRepository;
+import spring.board.member.request.MemberRequest;
 import spring.board.utils.SHA256;
 
 /**
