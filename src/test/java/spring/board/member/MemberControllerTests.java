@@ -22,7 +22,7 @@ public class MemberControllerTests {
 
     @DisplayName("회원가입")
     @Test
-    void SignUpTest() {
+    void SignUpTest() throws Exception {
         //given
         MemberRequest member = member();
 
@@ -45,7 +45,7 @@ public class MemberControllerTests {
 
     @DisplayName("로그인")
     @Test
-    void Logintest() {
+    void Logintest() throws Exception {
         MemberRequest member = member();
 
         memberController.insertMember(member);

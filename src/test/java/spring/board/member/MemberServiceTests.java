@@ -26,7 +26,7 @@ public class MemberServiceTests {
 
     @Test
     @Rollback(value = true)
-    void insertMember() {
+    void insertMember() throws Exception {
         log.info("method = {}", "insertMember");
 
         MemberRequest member = MemberRequest.builder()
@@ -48,7 +48,7 @@ public class MemberServiceTests {
 
     @Test
     @Rollback(value = true)
-    void selectMember() {
+    void selectMember() throws Exception {
         log.info("method = {}", "selectMember");
 
         MemberRequest member = MemberRequest.builder()

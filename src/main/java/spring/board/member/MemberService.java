@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import spring.board.request.MemberRequest;
+import spring.board.utils.SHA256;
 
 /**
  * 멤버 Service
@@ -16,13 +17,12 @@ import spring.board.request.MemberRequest;
 public class MemberService {
 
     private final MemberRepository memberRepository;
-
     /**
      * member 등록
      * @param memberRequest
      * @return
      */
-    public Member insertMember(MemberRequest memberRequest) {
+    public Member insertMember(MemberRequest memberRequest) throws Exception {
         Member member = buildMember(memberRequest);
         return memberRepository.save(member);
     }
@@ -32,7 +32,7 @@ public class MemberService {
      * @param memberRequest
      * @return
      */
-    public Member selectOneMemberById(MemberRequest memberRequest) {
+    public Member selectOneMemberById(MemberRequest memberRequest) throws Exception {
         Member member = buildMember(memberRequest);
         return memberRepository.findOneById(member.getId());
     }
@@ -43,10 +43,11 @@ public class MemberService {
      * @return
      */
 
-    private Member buildMember(MemberRequest memberRequest) {
+    private Member buildMember(MemberRequest memberRequest) throws Exception {
+        SHA256 sha256 = new SHA256();
         return Member.builder()
                 .id(memberRequest.getId())
-                .password(memberRequest.getPassword())
+                .password(sha256.encrypt(memberRequest.getPassword()))
                 .nickname(memberRequest.getNickname())
                 .build();
     }
