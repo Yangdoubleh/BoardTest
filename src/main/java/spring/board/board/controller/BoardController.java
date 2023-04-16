@@ -5,18 +5,27 @@ import jakarta.servlet.http.HttpSession;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import spring.board.member.Member;
+import spring.board.member.service.MemberService;
 
 @Controller
 @AllArgsConstructor
 @Slf4j
 public class BoardController {
 
+    private final MemberService memberService;
+
     @RequestMapping("/board/main")
-    public String boardList(HttpServletRequest request) {
+    public String boardList(HttpServletRequest request, Model model) throws Exception {
         HttpSession session = request.getSession();
 
-        log.info("LoginId = {}", session.getAttribute("loginId"));
+        int memberseq = (int) session.getAttribute("loginId");
+
+        Member loginMember = memberService.selectOneMemberBySeq(memberseq);
+        model.addAttribute("loginMember", loginMember);
+
         return "/board/boardList";
     }
 }

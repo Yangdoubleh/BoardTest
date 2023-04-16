@@ -21,7 +21,8 @@
       <span class="icon-bar"></span>
     </button>
     <a class="navbar-brand">JSP 게시판 웹 사이트</a>
-      <button class="btn btn-primary">로그 아웃</button>
+      <span>${loginMember.nickname}님 어서오세요</span>
+      <button class="btn btn-primary" onclick="logout()">로그 아웃</button>
     </div>
   </div>
 </nav>
@@ -47,5 +48,10 @@
     </table>
   </div>
 </div>
+<script type="text/javascript">
+  const logout = () => {
+    location.href = "/user/main";
+  };
+</script>
 </body>
 </html>

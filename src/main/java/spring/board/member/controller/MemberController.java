@@ -19,8 +19,14 @@ public class MemberController {
 
     private final MemberService memberService;
 
+    @RequestMapping(value = "/")
+    public String index() {
+        return "redirect:/user/main";
+    }
+
     @PostMapping(value = "/user/insertMember")
-    public ResponseEntity<Member> insertMember(MemberRequest memberRequest) throws Exception{
+    public ResponseEntity<Member> insertMember(MemberRequest memberRequest) throws Exception {
+
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(memberService.insertMember(memberRequest));
     }
@@ -38,7 +44,9 @@ public class MemberController {
     }
 
     @RequestMapping(value = "/user/main", method = RequestMethod.GET)
-    public String main() {
+    public String main(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        session.removeAttribute("loginId");
         return "member/login";
     }
 

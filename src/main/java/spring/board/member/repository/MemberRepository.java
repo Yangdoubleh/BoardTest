@@ -16,4 +16,6 @@ public interface MemberRepository extends JpaRepository<Member, Integer> {
      * @return
      */
     Member findOneById(String id);
+
+    Member findOneByMemberseq(int seq);
 }

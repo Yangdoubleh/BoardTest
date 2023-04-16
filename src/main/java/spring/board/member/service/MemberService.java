@@ -53,4 +53,8 @@ public class MemberService {
                 .nickname(memberRequest.getNickname())
                 .build();
     }
+
+    public Member selectOneMemberBySeq(int memberseq) throws Exception {
+        return memberRepository.findOneByMemberseq(memberseq);
+    }
 }
