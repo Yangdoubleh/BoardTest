@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://www.springframework.org/tags" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -27,35 +28,34 @@
   </div>
 </nav>
 <div class="container">
-  <div class="row">
-    <table class="table table-striped" style="text-align: center; border: 1px solid #dddddd">
-      <thead>
-      <tr>
-        <th style="background-color: #eeeeee; text-align: center;">번호</th>
-        <th style="background-color: #eeeeee; text-align: center;">제목</th>
-        <th style="background-color: #eeeeee; text-align: center;">작성자</th>
-        <th style="background-color: #eeeeee; text-align: center;">작성일</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr>
-        <td>1</td>
-        <td>안녕하세요</td>
-        <td>홍길동</td>
-        <td>2017-05-04</td>
-      </tr>
-      </tbody>
-    </table>
-    <button class="btn btn-primary" onclick="createTable()">생성</button>
-  </div>
+  <form id="boardForm">
+    <div class="row">
+      <span>제목</span></br>
+      <input type="text" id="title" name="title" placeholder="제목을 입력하세요"></br>
+      <span>내용</span></br>
+      <textarea id="contents" name="contents" cols="50" rows="20" placeholder="내용을 입력하세요"></textarea>
+    </div>
+  </form>
+  <button class="btn btn-primary" onclick="history.go(-1)">뒤로가기</button>
+  <button class="btn btn-primary" onclick="createBoard()">저장</button>
 </div>
 <script type="text/javascript">
   const logout = () => {
     location.href = "/user/main";
   };
 
-  const createTable = () => {
-    location.href = "/board/create";
+  const createBoard = () => {
+    $.ajax({
+      type: 'post',
+      url: '<c:url value="/board/insertboard"/>',
+      data: $("#boardForm").serialize(),
+      dataType: 'json',
+      success: function () {
+
+      }, error: function (e) {
+        console.log(e)
+      },
+    });
   }
 </script>
 </body>

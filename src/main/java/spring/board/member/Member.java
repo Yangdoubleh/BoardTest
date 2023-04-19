@@ -2,6 +2,10 @@ package spring.board.member;
 
 import jakarta.persistence.*;
 import lombok.*;
+import spring.board.board.Board;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Entity(name="member")
@@ -21,6 +25,9 @@ public class Member {
     @Column()
     private String nickname;
 
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "member")
+    List<Board> boards = new ArrayList<>();
+
     @Override
     public String toString() {
         return "멤버 객체 확인{" +
@@ -30,4 +37,5 @@ public class Member {
                 ", 닉네임='" + nickname + '\'' +
                 '}';
     }
+
 }

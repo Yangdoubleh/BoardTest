@@ -28,4 +28,16 @@ public class BoardController {
 
         return "/board/boardList";
     }
+
+    @RequestMapping("/board/create")
+    public String boardCreate(HttpServletRequest request, Model model) throws Exception {
+        HttpSession session = request.getSession();
+
+        int memberseq = (int) session.getAttribute("loginId");
+
+        Member loginMember = memberService.selectOneMemberBySeq(memberseq);
+        model.addAttribute("loginMember", loginMember);
+
+        return "/board/boardCreate";
+    }
 }
