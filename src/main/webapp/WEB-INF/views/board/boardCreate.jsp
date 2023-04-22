@@ -50,8 +50,12 @@
       url: '<c:url value="/board/insertboard"/>',
       data: $("#boardForm").serialize(),
       dataType: 'json',
-      success: function () {
-
+      success: function (board) {
+        let isboard = !!board;
+        if (isboard) {
+          alert('등록되었습니다.');
+          location.href = '/board/main'
+        }
       }, error: function (e) {
         console.log(e)
       },

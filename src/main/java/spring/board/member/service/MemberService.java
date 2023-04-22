@@ -54,6 +54,12 @@ public class MemberService {
                 .build();
     }
 
+    /**
+     * 멤버시퀀스로 멤버 찾기
+     * @param memberseq
+     * @return
+     * @throws Exception
+     */
     public Member selectOneMemberBySeq(int memberseq) throws Exception {
         return memberRepository.findOneByMemberseq(memberseq);
     }

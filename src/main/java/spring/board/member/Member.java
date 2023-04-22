@@ -1,5 +1,6 @@
 package spring.board.member;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import spring.board.board.Board;
@@ -26,6 +27,7 @@ public class Member {
     private String nickname;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "member")
+    @JsonIgnore
     List<Board> boards = new ArrayList<>();
 
     @Override

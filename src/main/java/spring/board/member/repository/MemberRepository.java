@@ -17,5 +17,10 @@ public interface MemberRepository extends JpaRepository<Member, Integer> {
      */
     Member findOneById(String id);
 
+    /**
+     * 멤버시퀀스로 유저 찾기
+     * @param seq
+     * @return
+     */
     Member findOneByMemberseq(int seq);
 }

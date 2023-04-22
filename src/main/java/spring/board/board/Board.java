@@ -1,5 +1,6 @@
 package spring.board.board;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import spring.board.member.Member;
@@ -18,6 +19,7 @@ public class Board {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "memberseq")
+    @JsonIgnore
     private Member member;
 
     @Column

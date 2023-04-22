@@ -56,7 +56,7 @@
 
   const createTable = () => {
     location.href = "/board/create";
-  }
+  };
 </script>
 </body>
 </html>

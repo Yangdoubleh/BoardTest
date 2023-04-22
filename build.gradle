@@ -45,6 +45,11 @@ dependencies {
 
 	//Devtools
 	compileOnly("org.springframework.boot:spring-boot-devtools")
+
+	//swagger
+	implementation 'io.springfox:springfox-swagger2'
+	implementation 'io.springfox:springfox-swagger-ui'
+
 }
 
 tasks.named('test') {
