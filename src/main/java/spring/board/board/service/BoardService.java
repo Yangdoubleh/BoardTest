@@ -72,13 +72,30 @@ public class BoardService {
                 .build();
     }
 
+    /**
+     * 게시판 페이징 조회
+     * @param pageable
+     * @return
+     */
     @Transactional(readOnly = true)
     public Page<Board> findAll(Pageable pageable) {
         return boardRepository.findAll(pageable);
     }
 
+    /**
+     * 게시물 조회
+     * @param boardseq
+     * @return
+     */
     @Transactional(readOnly = true)
     public Board findOneByBoardseq(int boardseq) {
         return boardRepository.findOneByBoardseq(boardseq);
+    }
+
+
+    @Transactional
+    public void deleteById(BoardRequest boardRequest) {
+        int boardseq = boardRequest.getBoardseq();
+        boardRepository.deleteById(boardseq);
     }
 }

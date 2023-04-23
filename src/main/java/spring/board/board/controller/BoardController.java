@@ -103,4 +103,14 @@ public class BoardController {
 
         return "/board/boardDetail";
     }
+
+    @PostMapping("/board/deleteBoard")
+    public ResponseEntity<String> deleteBoard(HttpServletRequest request, BoardRequest boardRequest) {
+
+        boardService.deleteById(boardRequest);
+
+        String msg = "삭제되었습니다";
+
+        return ResponseEntity.ok(msg);
+    }
 }

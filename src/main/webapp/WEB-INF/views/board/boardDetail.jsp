@@ -38,13 +38,32 @@
   </form>
   <button class="btn btn-primary" onclick="history.go(-1)">뒤로가기</button>
   <c:if test="${loginMember.memberseq eq detailBoard.member.memberseq}">
-    <button class="btn btn-primary" onclick="">수정하기</button>
-    <button class="btn btn-primary" onclick="">삭제하기</button>
+    <button class="btn btn-primary" onclick="modifyBoard(${detailBoard.boardseq})">수정하기</button>
+    <button class="btn btn-primary" onclick="deleteBoard(${detailBoard.boardseq})">삭제하기</button>
   </c:if>
 </div>
 <script type="text/javascript">
   const logout = () => {
     location.href = "/user/main";
+  };
+  const deleteBoard = boardseq => {
+    if (confirm("게시물을 삭제하시겠습니까?")) {
+      $.ajax({
+        type: "post",
+        url: "<c:url value="/board/deleteBoard"/>",
+        data: {
+          "boardseq": boardseq
+        },
+        dataType: "text",
+        success: function (msg) {
+          alert(msg);
+          location.href = "/board/main";
+        }, error: function (e) {
+          alert("오류가 발생했습니다.");
+          console.log(e);
+        },
+      })
+    }
   };
 </script>
 </body>
