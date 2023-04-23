@@ -65,6 +65,7 @@ public class BoardService {
         String now = localDateTime.format(dateTimeFormatter);
 
         return Board.builder()
+                .boardseq(boardRequest.getBoardseq())
                 .member(member)
                 .title(boardRequest.getTitle())
                 .contents(boardRequest.getContents())
@@ -109,6 +110,7 @@ public class BoardService {
      * @param boardRequest
      * @return
      */
+    @Transactional
     public Board updateBoard(int memberseq, BoardRequest boardRequest) {
         Member member = this.getmember(memberseq);
         Board updateBoard = this.buildBoard(boardRequest, member);
