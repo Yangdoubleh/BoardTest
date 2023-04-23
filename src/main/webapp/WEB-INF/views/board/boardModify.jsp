@@ -32,16 +32,13 @@
     <input type="hidden" id="boardseq" name="boardseq" value="${detailBoard.boardseq}"/>
     <div class="row">
       <h2>제목</h2></br>
-      ${detailBoard.title}</br>
+      <input type="text" id="title" name="title" placeholder="제목을 입력하세요" value="${detailBoard.title}"></br>
       <h2>내용</h2></br>
-      ${detailBoard.contents}
+      <textarea id="contents" name="contents" cols="50" rows="20" placeholder="내용을 입력하세요">${detailBoard.contents}</textarea>
     </div>
   </form>
   <button class="btn btn-primary" onclick="history.go(-1)">뒤로가기</button>
-  <c:if test="${loginMember.memberseq eq detailBoard.member.memberseq}">
-    <button class="btn btn-primary" onclick="modifyBoard()">수정하기</button>
-    <button class="btn btn-primary" onclick="deleteBoard()">삭제하기</button>
-  </c:if>
+  <button class="btn btn-primary" onclick="modifyBoard()">수정하기</button>
 </div>
 <script type="text/javascript">
   const logout = () => {
@@ -54,24 +51,6 @@
       action: "<c:url value='/board/modifyBoard'/>"
     });
     $("#boardForm").submit();
-  };
-
-  const deleteBoard = boardseq => {
-    if (confirm("게시물을 삭제하시겠습니까?")) {
-      $.ajax({
-        type: "post",
-        url: "<c:url value="/board/deleteBoard"/>",
-        data: $("#boardForm").serialize(),
-        dataType: "text",
-        success: function (msg) {
-          alert(msg);
-          location.href = "/board/main";
-        }, error: function (e) {
-          alert("오류가 발생했습니다.");
-          console.log(e);
-        },
-      })
-    }
   };
 </script>
 </body>

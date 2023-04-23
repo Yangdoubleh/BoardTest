@@ -89,6 +89,14 @@ public class BoardController {
         return ResponseEntity.ok(board);
     }
 
+    /**
+     * 게시글 상세보기
+     * @param request
+     * @param boardseq
+     * @param model
+     * @return
+     * @throws Exception
+     */
     @RequestMapping(value = "/board/detailBoard", method = RequestMethod.GET)
     public String detailBoard(HttpServletRequest request, @RequestParam(value = "boardseq") int boardseq, Model model) throws Exception {
         HttpSession session = request.getSession();
@@ -104,6 +112,27 @@ public class BoardController {
         return "/board/boardDetail";
     }
 
+    @RequestMapping(value = "/board/modifyBoard")
+    public String modifyBoard(HttpServletRequest request, @RequestParam(value = "boardseq") int boardseq, Model model) throws Exception {
+        HttpSession session = request.getSession();
+
+        int memberseq = (int) session.getAttribute("loginId");
+        Member loginMember = memberService.selectOneMemberBySeq(memberseq);
+
+        Board detailBoard = boardService.findOneByBoardseq(boardseq);
+
+        model.addAttribute("loginMember", loginMember);
+        model.addAttribute("detailBoard", detailBoard);
+
+        return "/board/boardModify";
+    }
+
+    /**
+     * 게시글 삭제
+     * @param request
+     * @param boardRequest
+     * @return
+     */
     @PostMapping("/board/deleteBoard")
     public ResponseEntity<String> deleteBoard(HttpServletRequest request, BoardRequest boardRequest) {
 

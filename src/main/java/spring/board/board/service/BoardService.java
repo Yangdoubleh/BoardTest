@@ -93,6 +93,10 @@ public class BoardService {
     }
 
 
+    /**
+     * 게시글 삭제
+     * @param boardRequest
+     */
     @Transactional
     public void deleteById(BoardRequest boardRequest) {
         int boardseq = boardRequest.getBoardseq();
