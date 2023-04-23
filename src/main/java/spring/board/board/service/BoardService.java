@@ -1,9 +1,11 @@
 package spring.board.board.service;
 
-import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import spring.board.board.Board;
 import spring.board.board.repository.BoardRepository;
 import spring.board.board.request.BoardRequest;
@@ -68,5 +70,10 @@ public class BoardService {
                 .contents(boardRequest.getContents())
                 .indate(now)
                 .build();
+    }
+
+    @Transactional(readOnly = true)
+    public Page<Board> findAll(Pageable pageable) {
+        return boardRepository.findAll(pageable);
     }
 }

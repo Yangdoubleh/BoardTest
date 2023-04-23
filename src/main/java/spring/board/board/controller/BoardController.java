@@ -4,11 +4,16 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import spring.board.board.Board;
 import spring.board.board.request.BoardRequest;
 import spring.board.board.service.BoardService;
@@ -31,14 +36,18 @@ public class BoardController {
      * @return
      * @throws Exception
      */
-    @RequestMapping("/board/main")
-    public String boardList(HttpServletRequest request, Model model) throws Exception {
+    @RequestMapping(value = "/board/main", method = RequestMethod.GET)
+    public String boardList(HttpServletRequest request, Model model,
+            @PageableDefault(size = 10, sort = "boardseq",direction = Sort.Direction.DESC) Pageable pageable) throws Exception {
         HttpSession session = request.getSession();
 
         int memberseq = (int) session.getAttribute("loginId");
 
+        Page<Board> boardList = boardService.findAll(pageable);
+
         Member loginMember = memberService.selectOneMemberBySeq(memberseq);
         model.addAttribute("loginMember", loginMember);
+        model.addAttribute("boardList", boardList);
 
         return "/board/boardList";
     }
