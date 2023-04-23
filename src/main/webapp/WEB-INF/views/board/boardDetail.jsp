@@ -31,36 +31,21 @@
   <form id="boardForm">
     <div class="row">
       <h2>제목</h2></br>
-      <input type="text" id="title" name="title" placeholder="제목을 입력하세요"></br>
+      ${detailBoard.title}</br>
       <h2>내용</h2></br>
-      <textarea id="contents" name="contents" cols="50" rows="20" placeholder="내용을 입력하세요"></textarea>
+      ${detailBoard.contents}
     </div>
   </form>
   <button class="btn btn-primary" onclick="history.go(-1)">뒤로가기</button>
-  <button class="btn btn-primary" onclick="createBoard()">저장</button>
+  <c:if test="${loginMember.memberseq eq detailBoard.member.memberseq}">
+    <button class="btn btn-primary" onclick="">수정하기</button>
+    <button class="btn btn-primary" onclick="">삭제하기</button>
+  </c:if>
 </div>
 <script type="text/javascript">
   const logout = () => {
     location.href = "/user/main";
   };
-
-  const createBoard = () => {
-    $.ajax({
-      type: 'post',
-      url: '<c:url value="/board/insertboard"/>',
-      data: $("#boardForm").serialize(),
-      dataType: 'json',
-      success: function (board) {
-        let isboard = !!board;
-        if (isboard) {
-          alert('등록되었습니다.');
-          location.href = '/board/main'
-        }
-      }, error: function (e) {
-        console.log(e)
-      },
-    });
-  }
 </script>
 </body>
 </html>

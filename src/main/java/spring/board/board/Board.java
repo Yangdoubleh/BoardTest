@@ -30,15 +30,4 @@ public class Board {
 
     @Column
     private String indate;
-
-    @Override
-    public String toString() {
-        return "게시판 객체 확인{" +
-                "게시판시퀀스=" + boardseq +
-                ", 작성자정보=" + member +
-                ", 타이틀='" + title + '\'' +
-                ", 콘텐츠='" + contents + '\'' +
-                ", 등록일='" + indate + '\'' +
-                '}';
-    }
 }

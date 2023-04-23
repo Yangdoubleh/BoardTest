@@ -10,4 +10,6 @@ import spring.board.board.Board;
 public interface BoardRepository extends JpaRepository<Board, Integer> {
 
     Page<Board> findAll(Pageable pageable);
+
+    Board findOneByBoardseq(int boardseq);
 }

@@ -29,15 +29,4 @@ public class Member {
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "member")
     @JsonIgnore
     List<Board> boards = new ArrayList<>();
-
-    @Override
-    public String toString() {
-        return "멤버 객체 확인{" +
-                "멤버시퀀스='" + memberseq + '\'' +
-                "멤버아이디='" + id + '\'' +
-                ", 패스워드='" + password + '\'' +
-                ", 닉네임='" + nickname + '\'' +
-                '}';
-    }
-
 }

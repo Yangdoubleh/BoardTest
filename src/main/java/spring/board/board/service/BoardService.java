@@ -76,4 +76,9 @@ public class BoardService {
     public Page<Board> findAll(Pageable pageable) {
         return boardRepository.findAll(pageable);
     }
+
+    @Transactional(readOnly = true)
+    public Board findOneByBoardseq(int boardseq) {
+        return boardRepository.findOneByBoardseq(boardseq);
+    }
 }

@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import spring.board.board.Board;
 import spring.board.board.request.BoardRequest;
 import spring.board.board.service.BoardService;
@@ -47,7 +48,7 @@ public class BoardController {
 
         Member loginMember = memberService.selectOneMemberBySeq(memberseq);
         model.addAttribute("loginMember", loginMember);
-        model.addAttribute("boardList", boardList);
+        model.addAttribute("boardList", boardList.toList());
 
         return "/board/boardList";
     }
@@ -86,5 +87,20 @@ public class BoardController {
         Board board = boardService.insertBoard(memberseq, boardRequest);
 
         return ResponseEntity.ok(board);
+    }
+
+    @RequestMapping(value = "/board/detailBoard", method = RequestMethod.GET)
+    public String detailBoard(HttpServletRequest request, @RequestParam(value = "boardseq") int boardseq, Model model) throws Exception {
+        HttpSession session = request.getSession();
+
+        int memberseq = (int) session.getAttribute("loginId");
+        Member loginMember = memberService.selectOneMemberBySeq(memberseq);
+
+        Board detailBoard = boardService.findOneByBoardseq(boardseq);
+
+        model.addAttribute("loginMember", loginMember);
+        model.addAttribute("detailBoard", detailBoard);
+
+        return "/board/boardDetail";
     }
 }
