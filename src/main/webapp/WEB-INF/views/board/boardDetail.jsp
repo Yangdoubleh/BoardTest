@@ -37,7 +37,7 @@
       ${detailBoard.contents}
     </div>
   </form>
-  <button class="btn btn-primary" onclick="history.go(-1)">뒤로가기</button>
+  <button class="btn btn-primary" onclick="location.href='/board/main'">뒤로가기</button>
   <c:if test="${loginMember.memberseq eq detailBoard.member.memberseq}">
     <button class="btn btn-primary" onclick="modifyBoard()">수정하기</button>
     <button class="btn btn-primary" onclick="deleteBoard()">삭제하기</button>

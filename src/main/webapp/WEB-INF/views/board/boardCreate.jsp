@@ -36,7 +36,7 @@
       <textarea id="contents" name="contents" cols="50" rows="20" placeholder="내용을 입력하세요"></textarea>
     </div>
   </form>
-  <button class="btn btn-primary" onclick="history.go(-1)">뒤로가기</button>
+  <button class="btn btn-primary" onclick="location.href='/board/main'">뒤로가기</button>
   <button class="btn btn-primary" onclick="createBoard()">저장</button>
 </div>
 <script type="text/javascript">

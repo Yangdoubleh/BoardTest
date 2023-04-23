@@ -102,4 +102,17 @@ public class BoardService {
         int boardseq = boardRequest.getBoardseq();
         boardRepository.deleteById(boardseq);
     }
+
+    /**
+     * 게시글 수정
+     * @param memberseq
+     * @param boardRequest
+     * @return
+     */
+    public Board updateBoard(int memberseq, BoardRequest boardRequest) {
+        Member member = this.getmember(memberseq);
+        Board updateBoard = this.buildBoard(boardRequest, member);
+
+        return boardRepository.save(updateBoard);
+    }
 }

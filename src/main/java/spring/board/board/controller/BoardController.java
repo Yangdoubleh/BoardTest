@@ -112,6 +112,14 @@ public class BoardController {
         return "/board/boardDetail";
     }
 
+    /**
+     * 게시글 수정 화면
+     * @param request
+     * @param boardseq
+     * @param model
+     * @return
+     * @throws Exception
+     */
     @RequestMapping(value = "/board/modifyBoard")
     public String modifyBoard(HttpServletRequest request, @RequestParam(value = "boardseq") int boardseq, Model model) throws Exception {
         HttpSession session = request.getSession();
@@ -141,5 +149,21 @@ public class BoardController {
         String msg = "삭제되었습니다";
 
         return ResponseEntity.ok(msg);
+    }
+
+    /**
+     * 게시글 수정
+     * @param request
+     * @param boardRequest
+     * @return
+     */
+    @PostMapping("/board/updateBoard")
+    public ResponseEntity<Board> updateBoard(HttpServletRequest request, BoardRequest boardRequest) {
+        HttpSession session = request.getSession();
+
+        int memberseq = (int) session.getAttribute("loginId");
+        Board board = boardService.updateBoard(memberseq, boardRequest);
+
+        return ResponseEntity.ok(board);
     }
 }

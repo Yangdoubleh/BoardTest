@@ -37,20 +37,34 @@
       <textarea id="contents" name="contents" cols="50" rows="20" placeholder="내용을 입력하세요">${detailBoard.contents}</textarea>
     </div>
   </form>
-  <button class="btn btn-primary" onclick="history.go(-1)">뒤로가기</button>
-  <button class="btn btn-primary" onclick="modifyBoard()">수정하기</button>
+  <button class="btn btn-primary" onclick="goDetail(${detailBoard.boardseq})">뒤로가기</button>
+  <button class="btn btn-primary" onclick="updateBoard()">수정하기</button>
 </div>
 <script type="text/javascript">
   const logout = () => {
     location.href = "/user/main";
   };
 
-  const modifyBoard = boardseq => {
-    $("#boardForm").attr({
+  const goDetail = boardseq => {
+    location.href = "/board/detailBoard?boardseq=" + encodeURI(boardseq);
+  };
+
+  const updateBoard = boardseq => {
+    $.ajax({
       type: "post",
-      action: "<c:url value='/board/modifyBoard'/>"
+      url: "<c:url value='/board/updateBoard'/>",
+      data: $("#boardForm").serialize(),
+      dataType: "json",
+      success: function (board) {
+        if (!!board) {
+          alert("수정이 완료되었습니다.");
+          goDetail(board.boardseq);
+        }
+      }, error: function (e) {
+        alert("오류가 발생했습니다.");
+        console.log(e);
+      },
     });
-    $("#boardForm").submit();
   };
 </script>
 </body>
