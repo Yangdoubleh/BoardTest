@@ -32,11 +32,18 @@
     <input type="hidden" id="boardseq" name="boardseq" value="${detailBoard.boardseq}"/>
     <div class="row">
       <h2>제목</h2></br>
-      ${detailBoard.title}</br>
+      <div class="text-left">${detailBoard.title}</div></br>
       <h2>내용</h2></br>
-      ${detailBoard.contents}
+      <div class="text-left">${detailBoard.contents}</div>
     </div>
   </form>
+  <div class="container">
+    </br><span>${loginMember.nickname}</span></br>
+    <form id="commentForm">
+      <textarea id="content" cols="50" rows="3" name="content" placeholder="댓글을 입력해 주세요."></textarea>
+      <button class="btn-primary">등록</button>
+    </form>
+  </div>
   <button class="btn btn-primary" onclick="location.href='/board/main'">뒤로가기</button>
   <c:if test="${loginMember.memberseq eq detailBoard.member.memberseq}">
     <button class="btn btn-primary" onclick="modifyBoard()">수정하기</button>
