@@ -8,7 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import spring.board.member.Member;
+import spring.board.member.entity.Member;
 import spring.board.member.service.MemberService;
 import spring.board.member.request.MemberRequest;
 

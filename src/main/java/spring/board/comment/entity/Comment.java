@@ -3,8 +3,8 @@ package spring.board.comment.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
-import spring.board.board.Board;
-import spring.board.member.Member;
+import spring.board.board.entity.Board;
+import spring.board.member.entity.Member;
 
 @Getter
 @Builder

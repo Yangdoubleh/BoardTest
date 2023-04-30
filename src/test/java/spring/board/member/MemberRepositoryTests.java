@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
 import spring.board.BoardApplicationTests;
+import spring.board.member.entity.Member;
 import spring.board.member.repository.MemberRepository;
 
 import static org.assertj.core.api.Assertions.*;

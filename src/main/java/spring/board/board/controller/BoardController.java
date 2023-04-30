@@ -15,10 +15,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import spring.board.board.Board;
+import spring.board.board.entity.Board;
 import spring.board.board.request.BoardRequest;
 import spring.board.board.service.BoardService;
-import spring.board.member.Member;
+import spring.board.member.entity.Member;
 import spring.board.member.service.MemberService;
 
 @Controller

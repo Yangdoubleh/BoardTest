@@ -2,11 +2,10 @@ package spring.board.board.service;
 
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import spring.board.board.Board;
+import spring.board.board.entity.Board;
 import spring.board.board.request.BoardRequest;
 import spring.board.member.service.MemberService;
 

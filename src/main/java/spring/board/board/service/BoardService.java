@@ -6,10 +6,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import spring.board.board.Board;
+import spring.board.board.entity.Board;
 import spring.board.board.repository.BoardRepository;
 import spring.board.board.request.BoardRequest;
-import spring.board.member.Member;
+import spring.board.member.entity.Member;
 import spring.board.member.repository.MemberRepository;
 
 import java.time.LocalDateTime;

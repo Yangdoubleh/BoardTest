@@ -1,10 +1,10 @@
-package spring.board.board;
+package spring.board.board.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import spring.board.comment.entity.Comment;
-import spring.board.member.Member;
+import spring.board.member.entity.Member;
 
 import java.util.ArrayList;
 import java.util.List;

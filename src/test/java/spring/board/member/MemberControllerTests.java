@@ -1,6 +1,5 @@
 package spring.board.member;
 
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.DisplayName;
@@ -11,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mock.web.MockHttpServletRequest;
 import spring.board.member.controller.MemberController;
+import spring.board.member.entity.Member;
 import spring.board.member.request.MemberRequest;
 import spring.board.utils.SHA256;
 

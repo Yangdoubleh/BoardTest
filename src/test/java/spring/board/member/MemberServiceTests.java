@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
+import spring.board.member.entity.Member;
 import spring.board.member.request.MemberRequest;
 import spring.board.member.service.MemberService;
 
