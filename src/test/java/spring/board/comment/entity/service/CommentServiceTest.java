@@ -8,6 +8,7 @@ import spring.board.board.entity.Board;
 import spring.board.board.repository.BoardRepository;
 import spring.board.comment.entity.Comment;
 import spring.board.comment.request.CommentReqeust;
+import spring.board.comment.service.CommentService;
 import spring.board.member.entity.Member;
 import spring.board.member.repository.MemberRepository;
 

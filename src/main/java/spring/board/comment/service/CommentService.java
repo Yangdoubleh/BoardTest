@@ -1,4 +1,4 @@
-package spring.board.comment.entity.service;
+package spring.board.comment.service;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -7,7 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 import spring.board.board.entity.Board;
 import spring.board.board.repository.BoardRepository;
 import spring.board.comment.entity.Comment;
-import spring.board.comment.entity.repository.CommentRepository;
+import spring.board.comment.repository.CommentRepository;
 import spring.board.comment.request.CommentReqeust;
 import spring.board.member.entity.Member;
 
