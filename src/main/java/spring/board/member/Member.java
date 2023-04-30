@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import spring.board.board.Board;
+import spring.board.comment.entity.Comment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,4 +30,8 @@ public class Member {
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "member")
     @JsonIgnore
     List<Board> boards = new ArrayList<>();
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "member")
+    @JsonIgnore
+    List<Comment> coments = new ArrayList<>();
 }
