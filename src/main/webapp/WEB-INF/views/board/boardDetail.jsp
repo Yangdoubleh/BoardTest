@@ -36,14 +36,12 @@
       <h2>내용</h2></br>
       <div class="text-left">${detailBoard.contents}</div>
     </div>
+    <div class="container">
+      </br><span>${loginMember.nickname}</span></br>
+      <textarea id="contents" cols="50" rows="3" name=contents placeholder="댓글을 입력해 주세요."></textarea>
+      <button class="btn-primary" onclick="insertComment()">등록</button>
+    </div>
   </form>
-  <div class="container">
-    </br><span>${loginMember.nickname}</span></br>
-    <form id="commentForm">
-      <textarea id="content" cols="50" rows="3" name="content" placeholder="댓글을 입력해 주세요."></textarea>
-      <button class="btn-primary">등록</button>
-    </form>
-  </div>
   <button class="btn btn-primary" onclick="location.href='/board/main'">뒤로가기</button>
   <c:if test="${loginMember.memberseq eq detailBoard.member.memberseq}">
     <button class="btn btn-primary" onclick="modifyBoard()">수정하기</button>
@@ -55,7 +53,7 @@
     location.href = "/user/main";
   };
 
-  const modifyBoard = boardseq => {
+  const modifyBoard = () => {
     $("#boardForm").attr({
       type: "post",
       action: "<c:url value='/board/modifyBoard'/>"
@@ -63,7 +61,7 @@
     $("#boardForm").submit();
   };
 
-  const deleteBoard = boardseq => {
+  const deleteBoard = () => {
     if (confirm("게시물을 삭제하시겠습니까?")) {
       $.ajax({
         type: "post",
@@ -75,11 +73,27 @@
           location.href = "/board/main";
         }, error: function (e) {
           alert("오류가 발생했습니다.");
-          console.log(e);
         },
       })
     }
   };
+
+  const insertComment = () => {
+    if (confirm("댓글을 등록하시겠습니까?")) {
+      $.ajax({
+        type: "post",
+        url: "<c:url value="/comment/insertComment"/>",
+        data: $("#boardForm").serialize(),
+        dataType: "text",
+        success: function (msg) {
+          alert(msg);
+          location.reload();
+        }, error: function (e) {
+          alert("오류가 발생했습니다.");
+        },
+      });
+    }
+  }
 </script>
 </body>
 </html>
