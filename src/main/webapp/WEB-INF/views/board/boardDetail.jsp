@@ -29,25 +29,32 @@
   </div>
 </nav>
 <div class="container">
-  <form id="boardForm">
+  <form id="boardForm" onsubmit="return false;">
     <input type="hidden" id="boardseq" name="boardseq" value="${detailBoard.boardseq}"/>
+    <input type="hidden" id="commentseq" name="commentseq" value=""/>
     <div class="row">
       <h2>제목</h2></br>
       <div class="text-left">${detailBoard.title}</div></br>
       <h2>내용</h2></br>
       <div class="text-left">${detailBoard.contents}</div>
     </div>
-    <div class="container">
-      </br><span>${loginMember.nickname}</span></br>
+    </br>
+    </br>
+    <div id="commentAdd" class="container">
+      <span>${loginMember.nickname}</span></br>
       <textarea id="contents" cols="50" rows="3" name=contents placeholder="댓글을 입력해 주세요."></textarea>
       <button class="btn-primary" onclick="insertComment()">등록</button>
     </div>
-    <div id="commentDiv">
+    <div id="commentList">
       <c:forEach items="${detailBoard.coments}" var="item">
         <fmt:parseDate value="${item.indate}" var="formatDate" pattern="yyyyMMddHHmmss"/>
-        ${item.member.nickname} || ${item.contents} || <fmt:formatDate value="${formatDate}" pattern="yyyy-MM-dd HH:mm:ss"/>
-        <button class="btn-primary" onclick="modifyComment(${item.commentseq})">수정</button>
-        <button class="btn-primary" onclick="deleteComment(${item.commentseq})">삭제</button>
+        <div class="commetdiv">
+          <div id="comment${item.commentseq}">${item.member.nickname} || <span id="commentcontent${item.commentseq}">${item.contents}</span> || <fmt:formatDate value="${formatDate}" pattern="yyyy-MM-dd HH:mm:ss"/></div>
+          <button class="btn-primary changeComment" onclick="modifyComment('${item.commentseq}')">수정</button>
+          <button class="btn-primary" id="cancelComment${item.commentseq}" onclick="cancelComment()" style="display: none;">수정취소</button>
+          <button class="btn-primary" id="modifyComment${item.commentseq}" onclick="modifySubmit('${item.commentseq}')" style="display: none;">수정확인</button>
+          <button class="btn-primary changeComment" onclick="deleteComment(${item.commentseq})">삭제</button>
+        </div>
         </br>
       </c:forEach>
     </div>
@@ -89,6 +96,10 @@
   };
 
   const insertComment = () => {
+    if (!$("#contents").val().trim()) {
+      alert("내용을 입력해주세요.");
+      return false;
+    }
     if (confirm("댓글을 등록하시겠습니까?")) {
       $.ajax({
         type: "post",
@@ -104,6 +115,42 @@
       });
     }
   }
+
+  const modifyComment = commentseq => {
+    let comment = $("#commentcontent" + commentseq).html();
+    let textarea = `<textarea id="contents" cols="50" rows="3" name=contents placeholder="댓글을 입력해 주세요.">\${comment}</textarea>`;
+    $("#commentcontent" + commentseq).html(textarea);
+    $(".changeComment").hide();
+    $("#cancelComment" + commentseq).show();
+    $("#modifyComment" + commentseq).show();
+    $("#commentAdd").remove();
+  }
+
+  const cancelComment = () => {
+    location.reload();
+  };
+
+  const modifySubmit = commetseq => {
+    if (!$("#contents").val().trim()) {
+      alert("내용을 입력해주세요.");
+      return false;
+    }
+    if (confirm("댓글을 수정하시겠습니까?")) {
+      $("#commentseq").val(commetseq);
+      $.ajax({
+        type: "post",
+        url: "<c:url value="/comment/modifyComment"/>",
+        data: $("#boardForm").serialize(),
+        dataType: "text",
+        success: function (msg) {
+          alert(msg);
+          location.reload();
+        }, error: function (e) {
+          alert("오류가 발생했습니다.");
+        },
+      });
+    }
+  };
 </script>
 </body>
 </html>

@@ -26,9 +26,21 @@ public class CommentController {
         int memberseq = (int)session.getAttribute("loginId");
         Member member = memberService.selectOneMemberBySeq(memberseq);
 
-        commentService.insertComment(commentReqeust, member);
+        commentService.saveComment(commentReqeust, member);
 
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body("댓글이 등록되었습니다.");
+    }
+
+    @PostMapping("/comment/modifyComment")
+    ResponseEntity<String> modifyComment(CommentReqeust commentReqeust, HttpServletRequest request) throws Exception {
+        HttpSession session = request.getSession();
+        int memberseq = (int)session.getAttribute("loginId");
+        Member member = memberService.selectOneMemberBySeq(memberseq);
+
+        commentService.saveComment(commentReqeust, member);
+
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body("댓글이 수정되었습니다.");
     }
 }

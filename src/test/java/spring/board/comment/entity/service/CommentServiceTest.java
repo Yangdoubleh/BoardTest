@@ -40,7 +40,7 @@ class CommentServiceTest {
                 .findFirst()
                 .get();
 
-        Comment insertComment = commentService.insertComment(commentReqeust, member);
+        Comment insertComment = commentService.saveComment(commentReqeust, member);
 
         assertThat(insertComment.getBoard()).isEqualTo(board);
         assertThat(insertComment.getContents()).isEqualTo(commentReqeust.getContents());

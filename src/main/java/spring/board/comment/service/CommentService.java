@@ -31,7 +31,7 @@ public class CommentService {
      * @return
      */
     @Transactional
-    public Comment insertComment(CommentReqeust commentReqeust, Member member) {
+    public Comment saveComment(CommentReqeust commentReqeust, Member member) {
         Comment insertComment = this.buildComment(commentReqeust, member);
 
         return commentRepository.save(insertComment);
