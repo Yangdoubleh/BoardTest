@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -40,6 +41,15 @@
       </br><span>${loginMember.nickname}</span></br>
       <textarea id="contents" cols="50" rows="3" name=contents placeholder="댓글을 입력해 주세요."></textarea>
       <button class="btn-primary" onclick="insertComment()">등록</button>
+    </div>
+    <div id="commentDiv">
+      <c:forEach items="${detailBoard.coments}" var="item">
+        <fmt:parseDate value="${item.indate}" var="formatDate" pattern="yyyyMMddHHmmss"/>
+        ${item.member.nickname} || ${item.contents} || <fmt:formatDate value="${formatDate}" pattern="yyyy-MM-dd HH:mm:ss"/>
+        <button class="btn-primary" onclick="modifyComment(${item.commentseq})">수정</button>
+        <button class="btn-primary" onclick="deleteComment(${item.commentseq})">삭제</button>
+        </br>
+      </c:forEach>
     </div>
   </form>
   <button class="btn btn-primary" onclick="location.href='/board/main'">뒤로가기</button>
