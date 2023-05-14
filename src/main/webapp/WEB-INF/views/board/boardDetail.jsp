@@ -151,6 +151,24 @@
       });
     }
   };
+
+  const deleteComment = commetseq => {
+    if (confirm("댓글을 삭제하시겠습니까?")) {
+      $("#commentseq").val(commetseq);
+      $.ajax({
+        type: "post",
+        url: "<c:url value="/comment/deleteComment"/>",
+        data: $("#boardForm").serialize(),
+        dataType: "text",
+        success: function (msg) {
+          alert(msg);
+          location.reload();
+        }, error: function (e) {
+          alert("오류가 발생했습니다.");
+        },
+      });
+    }
+  };
 </script>
 </body>
 </html>

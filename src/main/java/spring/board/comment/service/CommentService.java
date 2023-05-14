@@ -31,10 +31,10 @@ public class CommentService {
      * @return
      */
     @Transactional
-    public Comment saveComment(CommentReqeust commentReqeust, Member member) {
+    public void saveComment(CommentReqeust commentReqeust, Member member) {
         Comment insertComment = this.buildComment(commentReqeust, member);
 
-        return commentRepository.save(insertComment);
+        commentRepository.save(insertComment);
     }
 
     /**
@@ -57,5 +57,10 @@ public class CommentService {
                 .member(member)
                 .indate(now)
                 .build();
+    }
+
+    @Transactional
+    public void deleteComment(CommentReqeust commentReqeust) {
+        commentRepository.deleteById(commentReqeust.getCommentseq());
     }
 }

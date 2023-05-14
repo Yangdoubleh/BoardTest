@@ -43,4 +43,12 @@ public class CommentController {
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body("댓글이 수정되었습니다.");
     }
+
+    @PostMapping("/comment/deleteComment")
+    ResponseEntity<String> deleteComment(CommentReqeust commentReqeust, HttpServletRequest request) throws Exception {
+        commentService.deleteComment(commentReqeust);
+
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body("댓글이 삭제되었습니다.");
+    }
 }
