@@ -40,12 +40,8 @@
     </div>
     </br>
     </br>
-    <div id="commentAdd" class="container">
-      <span>${loginMember.nickname}</span></br>
-      <textarea id="contents" cols="50" rows="3" name=contents placeholder="댓글을 입력해 주세요."></textarea>
-      <button class="btn-primary" onclick="insertComment()">등록</button>
-    </div>
     <div id="commentList">
+      <span>총 댓글 갯수 : ${detailBoard.coments.size()}</span>
       <c:forEach items="${detailBoard.coments}" var="item">
         <fmt:parseDate value="${item.indate}" var="formatDate" pattern="yyyyMMddHHmmss"/>
         <div class="commetdiv">
@@ -57,6 +53,11 @@
         </div>
         </br>
       </c:forEach>
+    </div>
+    <div id="commentAdd" class="container">
+      <span>${loginMember.nickname}</span></br>
+      <textarea id="contents" cols="50" rows="3" name=contents placeholder="댓글을 입력해 주세요."></textarea>
+      <button class="btn-primary" onclick="insertComment()">등록</button>
     </div>
   </form>
   <button class="btn btn-primary" onclick="location.href='/board/main'">뒤로가기</button>
