@@ -28,3 +28,11 @@ spring:
 
 server:
   port: 8900
+
+springdoc:
+  swagger-ui:
+    path: board.html
+  paths-to-match:
+    - /board/**
+    - /comment/**
+    - /user/**

@@ -1,5 +1,7 @@
 package spring.board.board.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.AllArgsConstructor;
@@ -9,21 +11,18 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import spring.board.board.entity.Board;
 import spring.board.board.request.BoardRequest;
 import spring.board.board.service.BoardService;
 import spring.board.member.entity.Member;
 import spring.board.member.service.MemberService;
 
-@Controller
+@RestController
 @AllArgsConstructor
 @Slf4j
+@Tag(name = "Board", description = "게시판 API Document")
 public class BoardController {
 
     private final MemberService memberService;
@@ -38,6 +37,7 @@ public class BoardController {
      * @throws Exception
      */
     @RequestMapping(value = "/board/main", method = RequestMethod.GET)
+    @Operation(summary = "게시판 화면", description = "게시판 화면을 출력합니다.", tags = {"View"})
     public String boardList(HttpServletRequest request, Model model,
             @PageableDefault(size = 10, sort = "boardseq",direction = Sort.Direction.DESC) Pageable pageable) throws Exception {
         HttpSession session = request.getSession();
@@ -60,7 +60,7 @@ public class BoardController {
      * @return
      * @throws Exception
      */
-    @RequestMapping("/board/create")
+    @RequestMapping(value = "/board/create", method = RequestMethod.POST)
     public String boardCreate(HttpServletRequest request, Model model) throws Exception {
         HttpSession session = request.getSession();
 
@@ -120,7 +120,7 @@ public class BoardController {
      * @return
      * @throws Exception
      */
-    @RequestMapping(value = "/board/modifyBoard")
+    @RequestMapping(value = "/board/modifyBoard", method = RequestMethod.GET)
     public String modifyBoard(HttpServletRequest request, @RequestParam(value = "boardseq") int boardseq, Model model) throws Exception {
         HttpSession session = request.getSession();
 
